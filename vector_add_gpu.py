@@ -9,11 +9,11 @@ from timeit import default_timer as time
 
 import numpy as np
 
-N = 1000000
+N = 10000000
 
 from numba import vectorize
 
-@vectorize("float32(float32,float32)", target='gpu')
+@vectorize("float32(float32,float32)", target='parallel')
 def sum(a, b):
     return a + b
 

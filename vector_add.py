@@ -9,7 +9,7 @@ from timeit import default_timer as time
 
 import numpy as np
 
-N = 1000000
+N = 10000000
 
 
 
