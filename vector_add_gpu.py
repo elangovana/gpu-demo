@@ -10,9 +10,8 @@ from timeit import default_timer as time
 
 import numpy as np
 
-
-
 from numba import vectorize
+
 
 # Parallelise sum operations
 @vectorize("float32(float32,float32)", target='cuda')
@@ -23,7 +22,7 @@ def sum(a, b):
 def main(vector_length):
     print('Vector Length is : ', vector_length)
 
-       # Initialise 2 vectors, each with length N with random numbers of float type
+    # Initialise 2 vectors, each with length N with random numbers of float type
     A = np.random.random(vector_length).astype(np.float32)
     B = np.random.random(vector_length).astype(np.float32)
 
