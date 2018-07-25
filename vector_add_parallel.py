@@ -20,7 +20,6 @@ def sum(a, b):
 
 
 def main(vector_length):
-    print('Vector Length is : ', vector_length)
 
     # Initialise 2 vectors, each with length N with random numbers of float type
     A = np.random.random(vector_length).astype(np.float32)
@@ -35,9 +34,17 @@ def main(vector_length):
     total_time = (time_end - time_start)
 
     # Print results
-    print('Execution time %.4f' % total_time)
-    print('Throughput %.4f' % (vector_length / total_time))
+    print("Vector A:")
+    print(A)
+    print("Vector B:")
+    print(B)
+    print("Result: A + B")
     print(C)
+    print("-----Stats----")
+    print('Vector Length is : ', vector_length)
+    print('Execution time is : %.4f ' % total_time)
+    print('Throughput is :  %.4f ' % (vector_length / total_time))
+    print("---------------")
 
 
 if __name__ == '__main__':
