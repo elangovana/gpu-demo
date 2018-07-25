@@ -26,9 +26,6 @@ def main(vector_length):
     A = np.random.random(vector_length).astype(np.float32)
     B = np.random.random(vector_length).astype(np.float32)
 
-    # # Initialise the resulting vector that holds the sum of A and B
-    # C = np.empty(A.shape, dtype=A.dtype)
-
     # Compute the sum of vectors A & B
     time_start = time()
     C = sum(A, B)
