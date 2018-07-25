@@ -5,48 +5,47 @@ Example vectorize usage.
 '''
 from __future__ import print_function
 
+import argparse
 from timeit import default_timer as time
 
 import numpy as np
 
-N = 10000000
+
 
 from numba import vectorize
 
-@vectorize("float32(float32,float32)", target='parallel')
+# Parallelise sum operations
+@vectorize("float32(float32,float32)", target='cuda')
 def sum(a, b):
     return a + b
 
 
-def main():
+def main(vector_length):
+    print('Vector Length is : ', vector_length)
 
+       # Initialise 2 vectors, each with length N with random numbers of float type
+    A = np.random.random(vector_length).astype(np.float32)
+    B = np.random.random(vector_length).astype(np.float32)
 
-    A = np.random.random(N).astype(np.float32)
-    B = np.random.random(N).astype(np.float32)
+    # # Initialise the resulting vector that holds the sum of A and B
+    # C = np.empty(A.shape, dtype=A.dtype)
 
+    # Compute the sum of vectors A & B
+    time_start = time()
+    C = sum(A, B)
+    time_end = time()
 
+    # Compute total execution time
+    total_time = (time_end - time_start)
 
-    assert A.shape == B.shape
-    assert A.dtype ==  B.dtype
-    assert len(A.shape) == 1
-
-    D = np.empty(A.shape, dtype=A.dtype)
-
-    print('Data size', N)
-
-    ts = time()
-    D = sum(A, B)
-    te = time()
-
-    total_time = (te - ts)
-
+    # Print results
     print('Execution time %.4f' % total_time)
-    print('Throughput %.4f' % (N / total_time))
-
-    print(D)
-
-
+    print('Throughput %.4f' % (vector_length / total_time))
+    print(C)
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("n", help="Enter the vector length", type=int)
+    args = parser.parse_args()
+    main(args.n)

@@ -10,12 +10,11 @@ from timeit import default_timer as time
 
 import numpy as np
 
+from numba import vectorize
 
 
-
-
-
-
+# Parallelise sum operations
+@vectorize("float32(float32,float32)", target='parallel')
 def sum(a, b):
     return a + b
 
@@ -27,23 +26,21 @@ def main(vector_length):
     A = np.random.random(vector_length).astype(np.float32)
     B = np.random.random(vector_length).astype(np.float32)
 
-    # Vectorise the sum function so that your dont have to loop through
-    vectorized_sum = np.vectorize(sum)
+    # # Initialise the resulting vector that holds the sum of A and B
+    # C = np.empty(A.shape, dtype=A.dtype)
 
-    # Compute the sum of A & B
+    # Compute the sum of vectors A & B
     time_start = time()
-    C = vectorized_sum(A, B)
+    C = sum(A, B)
     time_end = time()
 
     # Compute total execution time
     total_time = (time_end - time_start)
 
     # Print results
-    print('Execution time %.4f is : ' % total_time)
-    print('Throughput %.4f is : ' % (vector_length / total_time))
+    print('Execution time %.4f' % total_time)
+    print('Throughput %.4f' % (vector_length / total_time))
     print(C)
-
-
 
 
 if __name__ == '__main__':
