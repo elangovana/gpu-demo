@@ -6,7 +6,8 @@ This is a simple vector add example to compare the execution times for CPU Seque
 1. Require NVIDIA CUDA drivers installed to run the GPU example
 
 ##How to run
-1. This runs on CPU only
+### Vector Add
+1. This runs on Vector Add CPU only
     ```shell
     python vector_add.py 10000000
     ```
@@ -23,3 +24,14 @@ This is a simple vector add example to compare the execution times for CPU Seque
 
 
 
+### Vector Mutiply
+
+2. This multiply runs on the CPU only, but parallelises the operations
+    ```shell
+    python vector_multiply_parallel.py 10000000
+    ```
+
+3. This runs on the GPU (NVDIA)
+    ```shell
+    python vector_multiply_gpu.py 10000000
+    ```
