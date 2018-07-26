@@ -40,7 +40,7 @@ def main(vector_length):
     total_exec_time = exec_end_time- start_time
 
     # Print results
-    print("Result:  a * b ** 100 * c * d ** 24 * (a + b) ** 9 * (c + d) ** 9")
+    print("Result:  a * b ** 100 * c * d ** 24 * (a + b) ** 9 * (c + d) ** 100")
     print(result)
     print("-----Stats----")
     print('Vector Length is : ', vector_length)
