@@ -14,7 +14,7 @@ from numba import vectorize
 
 
 # Parallelise multiply operations
-@vectorize("float32(float32,float32)", target='cuda')
+@vectorize("float32(float32,float32,float32,float32)", target='cuda')
 def mutiply(a, b, c, d):
     return a * b **100 * c * d**24
 
