@@ -34,23 +34,21 @@ def main(vector_length):
 
     # Compute the sum of A & B
     time_start = time()
-    C = vectorized_sum(A, B)
+    result = vectorized_sum(A, B)
     time_end = time()
 
     # Compute total execution time
     total_time = (time_end - time_start)
+    total_time_secs = total_time.seconds + total_time.microseconds / 1E6
 
     # Print results
-    print("Vector A:")
-    print(A)
-    print("Vector B:")
-    print(B)
-    print("Result: A + B")
-    print(C)
+
+    print("Result: a * b ** 100 * c * d ** 24 * (a + b) ** 9 ** (c + d) ** 100")
+    print(result)
     print("-----Stats----")
     print('Vector Length is : ', vector_length)
-    print('Execution time is : %.4f ' % total_time)
-    print('Throughput is :  %.4f ' % (vector_length / total_time))
+    print('Execution time is : %.4f ' % total_time_secs)
+    print('Throughput is :  %.4f ' % (vector_length / total_time_secs))
     print("---------------")
 
 
