@@ -21,6 +21,8 @@ def mutiply(a, b, c, d):
 
 
 def main(vector_length):
+    start_time = datetime.now()
+
     # Initialise vectors, each with length N with random numbers of float type
     A = np.random.random(vector_length).astype(np.float32)
     B = np.random.random(vector_length).astype(np.float32)
@@ -28,21 +30,22 @@ def main(vector_length):
     D = np.random.random(vector_length).astype(np.float32)
 
     # Compute vector multiply
-    time_start = datetime.now()
+    exec_start_time = datetime.now()
     result = mutiply(A, B, C, D)
-    time_end = datetime.now()
+    exec_end_time = datetime.now()
 
     # Compute total execution time
-    total_time = (time_end - time_start)
-    total_time_secs = total_time.seconds + total_time.microseconds / 1E6
+    exec_time = (exec_end_time - exec_start_time)
+    total_exec_time = exec_end_time - start_time
 
     # Print results
     print("Result: a * b ** 100 * c * d ** 24 * (a + b) ** 9 ** (c + d) ** 100")
     print(result)
     print("-----Stats----")
     print('Vector Length is : ', vector_length)
-    print('Execution time is : %.4f ' % total_time_secs)
-    print('Throughput is :  %.4f ' % (vector_length / total_time_secs))
+    print('Execution time is : %.4f ' % exec_time.total_seconds())
+    print('Total Execution time is : %.4f ' % total_exec_time.total_seconds())
+    print('Throughput is :  %.4f ' % (vector_length / exec_time.total_seconds()))
     print("---------------")
 
 
