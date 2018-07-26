@@ -22,13 +22,13 @@ def mutiply(a, b, c, d):
 
 
 def main(vector_length):
-    # Initialise vectors, each with length N with random numbers of float type
     start_time = datetime.now()
 
-    A = np.random.random(vector_length).astype(np.float32)
-    B = np.random.random(vector_length).astype(np.float32)
-    C = np.random.random(vector_length).astype(np.float32)
-    D = np.random.random(vector_length).astype(np.float32)
+    # Initialise vectors, each with length N with ones of float type
+    A = np.ones(vector_length).astype(np.float32)
+    B = np.ones(vector_length).astype(np.float32)
+    C = np.ones(vector_length).astype(np.float32)
+    D = np.ones(vector_length).astype(np.float32)
 
     # Compute vector multiply
     exec_start_time = datetime.now()

@@ -20,8 +20,8 @@ def main(vector_length):
     start_time = datetime.now()
 
     # Initialise 2 vectors, each with length N with random numbers of float type
-    A = np.random.random(vector_length).astype(np.float32)
-    B = np.random.random(vector_length).astype(np.float32)
+    A = np.ones(vector_length).astype(np.float32)
+    B = np.ones(vector_length).astype(np.float32)
 
     # Vectorise the sum function so that your dont have to loop through
     #   For in in range(0, vector_length):

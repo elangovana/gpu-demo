@@ -23,9 +23,9 @@ def sum(a, b):
 def main(vector_length):
     start_time = datetime.now()
 
-    # Initialise 2 vectors, each with length N with random numbers of float type
-    A = np.random.random(vector_length).astype(np.float32)
-    B = np.random.random(vector_length).astype(np.float32)
+    # Initialise vectors, each with length N with ones of float type
+    A = np.ones(vector_length).astype(np.float32)
+    B = np.ones(vector_length).astype(np.float32)
 
     # Compute the sum of A & B
     exec_start_time = datetime.now()
