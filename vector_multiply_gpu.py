@@ -9,6 +9,7 @@ import argparse
 from timeit import default_timer as time
 
 import numpy as np
+from datetime import datetime
 
 from numba import vectorize
 
@@ -27,9 +28,9 @@ def main(vector_length):
     D = np.random.random(vector_length).astype(np.float32)
 
     # Compute vector multiply
-    time_start = time()
+    time_start = datetime.now()
     result = mutiply(A, B, C, D)
-    time_end = time()
+    time_end = datetime.now()
 
     # Compute total execution time
     total_time = (time_end - time_start)

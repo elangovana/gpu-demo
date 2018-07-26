@@ -9,11 +9,7 @@ import argparse
 from timeit import default_timer as time
 
 import numpy as np
-
-
-
-
-
+from datetime import datetime
 
 
 def sum(a, b):
@@ -21,7 +17,7 @@ def sum(a, b):
 
 
 def main(vector_length):
-
+    start_time = datetime.now()
 
     # Initialise 2 vectors, each with length N with random numbers of float type
     A = np.random.random(vector_length).astype(np.float32)
@@ -33,22 +29,22 @@ def main(vector_length):
     vectorized_sum = np.vectorize(sum)
 
     # Compute the sum of A & B
-    time_start = time()
+    exec_start_time = datetime.now()
     result = vectorized_sum(A, B)
-    time_end = time()
+    exec_end_time = datetime.now()
 
     # Compute total execution time
-    total_time = (time_end - time_start)
-    total_time_secs = total_time.seconds + total_time.microseconds / 1E6
+    exec_time = (exec_end_time - exec_start_time)
+    total_exec_time = exec_end_time - start_time
 
     # Print results
-
-    print("Result: a * b ** 100 * c * d ** 24 * (a + b) ** 9 ** (c + d) ** 100")
+    print("Result: a + b")
     print(result)
     print("-----Stats----")
     print('Vector Length is : ', vector_length)
-    print('Execution time is : %.4f ' % total_time_secs)
-    print('Throughput is :  %.4f ' % (vector_length / total_time_secs))
+    print('Execution time is : %.4f ' % exec_time.total_seconds())
+    print('Total Execution time is : %.4f ' % total_exec_time.total_seconds())
+    print('Throughput is :  %.4f ' % (vector_length / exec_time.total_seconds()))
     print("---------------")
 
 
