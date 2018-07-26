@@ -50,3 +50,12 @@ This is a simple vector add example to compare the execution times for CPU Seque
     nvprof --print-summary  --cpu-profiling on --cpu-profiling-mode vector_multiply_gpu.py 100000000
     ```
 
+### Run All
+1. Run All
+    ```shell
+    python vector_add.py 10000000
+    python vector_add_parallel.py 100000000
+    python vector_add_gpu.py 100000000
+    python vector_multiply_parallel.py 100000000
+    python vector_multiply_gpu.py 100000000
+    ```
