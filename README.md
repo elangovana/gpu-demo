@@ -14,24 +14,39 @@ This is a simple vector add example to compare the execution times for CPU Seque
 
 2. This also runs on the CPU only, but parallelises the operations
     ```shell
-    python vector_add_parallel.py 10000000
+    python vector_add_parallel.py 100000000
     ```
-
+    ```shell
+    nvprof --print-summary  --cpu-profiling on --cpu-profiling-mode vector_add_parallel.py 100000000
+    ```
+    
 3. This runs on the GPU (NVDIA)
     ```shell
-    python vector_add_gpu.py 10000000
+    python vector_add_gpu.py 100000000
     ```
-
+    ```shell
+    nvprof --print-summary  --cpu-profiling on --cpu-profiling-mode vector_add_gpu.py 100000000
+    ```
 
 
 ### Vector Mutiply
 
 2. This multiply runs on the CPU only, but parallelises the operations
     ```shell
-    python vector_multiply_parallel.py 10000000
+    python vector_multiply_parallel.py 100000000
+    ```
+    ```shell
+    nvprof --print-summary  --cpu-profiling on --cpu-profiling-mode vector_multiply_parallel.py 100000000
     ```
 
 3. This runs on the GPU (NVDIA)
     ```shell
-    python vector_multiply_gpu.py 10000000
+    python vector_multiply_gpu.py 100000000
+    
     ```
+    
+    In order to check the utilisation on the GPU vs CPU.
+    ```shell
+    nvprof --print-summary  --cpu-profiling on --cpu-profiling-mode vector_multiply_gpu.py 100000000
+    ```
+
