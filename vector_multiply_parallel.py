@@ -14,9 +14,9 @@ from numba import vectorize
 
 
 # Parallelise multiply operations
-@vectorize("float32(float32,float32,float32,float32,float32,float32)", target='parallel')
-def mutiply(a, b, c, d, e, f):
-    return a * b ** 100 * c * d ** 24 * e ** 21 * f ** 2
+@vectorize("float32(float32,float32,float32,float32)", target='parallel')
+def mutiply(a, b, c, d):
+    return a * b ** 100 * c * d ** 24 * (a + b) ** 9 ** (c + d) ** 100
 
 
 def main(vector_length):
@@ -25,12 +25,10 @@ def main(vector_length):
     B = np.random.random(vector_length).astype(np.float32)
     C = np.random.random(vector_length).astype(np.float32)
     D = np.random.random(vector_length).astype(np.float32)
-    E = np.random.random(vector_length).astype(np.float32)
-    F = np.random.random(vector_length).astype(np.float32)
 
-    # Compute the sum of vectors A & B
+    # Compute vector multiply
     time_start = time()
-    result = mutiply(A, B, C, D, E, F)
+    result = mutiply(A, B, C, D)
     time_end = time()
 
     # Compute total execution time
@@ -38,7 +36,7 @@ def main(vector_length):
 
     # Print results
 
-    print("Result: a * b ** 100 * c * d ** 24 * e ** 21 * f ** 2")
+    print("Result: a * b ** 100 * c * d ** 24 * (a + b) ** 9 ** (c + d) ** 100")
     print(result)
     print("-----Stats----")
     print('Vector Length is : ', vector_length)
