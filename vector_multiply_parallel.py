@@ -8,7 +8,6 @@ from __future__ import print_function
 import argparse
 from timeit import default_timer as time
 
-
 import numpy as np
 from datetime import datetime
 
@@ -18,7 +17,7 @@ from numba import vectorize
 # Parallelise multiply operations
 @vectorize("float32(float32,float32,float32,float32)", target='parallel')
 def mutiply(a, b, c, d):
-    return  a * b ** 100 * c * d ** 24 * (a + b) ** 9 * (c + d) ** 100
+    return a * b ** 100 * c * d ** 24 * (a + b) ** 9 * (c + d) ** 100 * (a + d) ** 100
 
 
 def main(vector_length):
@@ -37,10 +36,10 @@ def main(vector_length):
 
     # Compute total execution time
     exec_time = (exec_end_time - exec_start_time)
-    total_exec_time = exec_end_time- start_time
+    total_exec_time = exec_end_time - start_time
 
     # Print results
-    print("Result:  a * b ** 100 * c * d ** 24 * (a + b) ** 9 * (c + d) ** 100")
+    print("Result:  a * b ** 100 * c * d ** 24 * (a + b) ** 9 * (c + d) ** 100 * (a + d) ** 100")
     print(result)
     print("-----Stats----")
     print('Vector Length is : ', vector_length)
