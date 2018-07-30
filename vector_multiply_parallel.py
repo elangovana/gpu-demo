@@ -17,7 +17,7 @@ from numba import vectorize
 # Parallelise multiply operations
 @vectorize("float32(float32,float32,float32,float32)", target='parallel')
 def mutiply(a, b, c, d):
-     return a * (b ** 100) * c * (d ** 24) * ((a + b) ** 9) * ((c + d) ** 100) * ((a + d) ** 1000)
+     return (a * (b ** 10) * c * (d ** 240) * ((a + b) ** 9) * ((c + d) ** 100) * ((a + d) ** 10))**100
 
 
 def main(vector_length):
@@ -39,7 +39,7 @@ def main(vector_length):
     total_exec_time = exec_end_time - start_time
 
     # Print results
-    print("Result:  return a * (b ** 100) * c * (d ** 24) * ((a + b) ** 9) * ((c + d) ** 100) * ((a + d) ** 1000)")
+    print("Result:  (a * (b ** 10) * c * (d ** 240) * ((a + b) ** 9) * ((c + d) ** 100) * ((a + d) ** 10))**100")
     print(result)
     print("-----Stats----")
     print('Vector Length is : ', vector_length)
