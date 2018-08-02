@@ -2,21 +2,30 @@ import argparse
 
 import boto3
 from datetime import datetime
+import logging
 
+FORMAT = '%(asctime)s  %(levelname)s	%(module)s %(message)s'
+logging.basicConfig(format=FORMAT)
+logger = logging.getLogger(__name__)
+logger.setLevel(level=logging.INFO)
 
 def downloadfile(s3bucket, s3key, saveto_localpath):
+    logger.info("Downloading file {} from bucket {}".format(s3key, s3bucket))
 
     s3 = boto3.resource('s3')
-    print(s3bucket)
-    print(s3key)
     s3.Bucket(s3bucket).download_file(s3key, saveto_localpath)
 
+    logger.info("Completed..")
 
 def uploadfile(localpath, s3bucket, s3key):
+    logger.info("Uploading file {} to bucket {}, key {}".format(localpath, s3bucket, s3key))
+
     s3 = boto3.resource('s3')
 
     with open(localpath, 'rb') as data:
         s3.Bucket(s3bucket).put_object(Key=s3key, Body=data)
+
+    logger.info("Completed..")
 
 
 if __name__ == "__main__":
