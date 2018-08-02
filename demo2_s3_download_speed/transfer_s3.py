@@ -31,7 +31,7 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
         # The maximum amount of read parts that can be queued in memory to be written for a download
         max_io_queue=10,
         #  The max size of each chunk in the io queue
-        io_chunksize=1 * MB,
+        io_chunksize=10 * MB,
         #  If True, threads will be used when performing S3 transfers
         use_threads=True)
 
