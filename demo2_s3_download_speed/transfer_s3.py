@@ -18,10 +18,22 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
     client = boto3.client('s3')
 
     GB = 1024 ** 3
-    # Ensure that multipart uploads only happen if the size of a transfer
-    # is larger than S3's size limit for nonmultipart uploads, which is 5 GB.
-    config = TransferConfig(multipart_threshold=5 * GB, max_concurrency=20)
+    MB = 1024 ** 2
+    KB = 1024
 
+    config = TransferConfig(
+        # The transfer size threshold for which multipart uploads, downloads, and copies will automatically be triggereds
+        multipart_threshold=10 * MB,
+        # The maximum number of threads that will be making requests to perform a transfer
+        max_concurrency=20,
+        # The partition size of each part for a multipart transfer
+        multipart_chunksize=5 * MB,
+        # The maximum amount of read parts that can be queued in memory to be written for a download
+        max_io_queue=10,
+        #  The max size of each chunk in the io queue
+        io_chunksize=1 * MB,
+        #  If True, threads will be used when performing S3 transfers
+        use_threads=True)
 
     client.download_file(s3bucket, s3key, saveto_localpath, Config=config)
 
@@ -34,11 +46,21 @@ def uploadfile(localpath, s3bucket, s3key):
     client = boto3.client('s3')
 
     GB = 1024 ** 3
-    # Ensure that multipart uploads only happen if the size of a transfer
-    # is larger than S3's size limit for nonmultipart uploads, which is 5 GB.
-    config = TransferConfig(multipart_threshold=5 * GB, max_concurrency=20)
+    MB = 1024 ** 2
 
-
+    config = TransferConfig(
+        # The transfer size threshold for which multipart uploads, downloads, and copies will automatically be triggereds
+        multipart_threshold=1 * MB,
+        # The maximum number of threads that will be making requests to perform a transfer
+        max_concurrency=20,
+        # The partition size of each part for a multipart transfer
+        multipart_chunksize=5 * MB,
+        # The maximum amount of read parts that can be queued in memory to be written for a download
+        max_io_queue=10,
+        #  The max size of each chunk in the io queue
+        io_chunksize=1 * MB,
+        #  If True, threads will be used when performing S3 transfers
+        use_threads=True)
 
     client.upload_file(localpath, s3bucket, s3key, Config=config)
 
