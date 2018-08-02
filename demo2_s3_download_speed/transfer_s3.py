@@ -23,15 +23,15 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
 
     config = TransferConfig(
         # The transfer size threshold for which multipart uploads, downloads, and copies will automatically be triggereds
-        multipart_threshold=126 * MB,
+        multipart_threshold=512 * MB,
         # The maximum number of threads that will be making requests to perform a transfer
         max_concurrency=10,
         # The partition size of each part for a multipart transfer
-        multipart_chunksize=126 * MB,
+        multipart_chunksize=512 * MB,
         # The maximum amount of read parts that can be queued in memory to be written for a download
-        max_io_queue=126,
+        max_io_queue=5,
         #  The max size of each chunk in the io queue
-        io_chunksize=64 * MB,
+        io_chunksize=512 * MB,
         #  If True, threads will be used when performing S3 transfers
         use_threads=True)
 
