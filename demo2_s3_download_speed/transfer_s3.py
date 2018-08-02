@@ -4,7 +4,7 @@ import logging
 import boto3
 from datetime import datetime
 
-from boto3.s3.transfer import S3Transfer
+from boto3.s3.transfer import S3Transfer, TransferConfig
 
 FORMAT = '%(asctime)s  %(levelname)s	%(module)s %(message)s'
 logging.basicConfig(format=FORMAT)
@@ -17,8 +17,13 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
 
     client = boto3.client('s3')
 
-    with S3Transfer(client) as transfer:
-        transfer.download_file(s3bucket, s3key, saveto_localpath)
+    GB = 1024 ** 3
+    # Ensure that multipart uploads only happen if the size of a transfer
+    # is larger than S3's size limit for nonmultipart uploads, which is 5 GB.
+    config = TransferConfig(multipart_threshold=5 * GB, max_concurrency=20)
+
+
+    client.download_file(s3bucket, s3key, saveto_localpath, Config=config)
 
     logger.info("Completed..")
 
@@ -28,8 +33,14 @@ def uploadfile(localpath, s3bucket, s3key):
 
     client = boto3.client('s3')
 
-    with S3Transfer(client) as transfer:
-        transfer.upload_file(localpath, s3bucket, s3key)
+    GB = 1024 ** 3
+    # Ensure that multipart uploads only happen if the size of a transfer
+    # is larger than S3's size limit for nonmultipart uploads, which is 5 GB.
+    config = TransferConfig(multipart_threshold=5 * GB, max_concurrency=20)
+
+
+
+    client.upload_file(localpath, s3bucket, s3key, Config=config)
 
     logger.info("Completed..")
 
@@ -42,7 +53,7 @@ if __name__ == "__main__":
 
     parser.add_argument("op", choices=ops,
                         help="Enter the operation type. Choose one of these types {}".format(ops))
-    parser.add_argument("localpath", help="Enter the localpath")
+    parser.add_argument("localpath", help="Enter the local path")
     parser.add_argument("s3bucket", help="Enter bucket name")
     parser.add_argument("s3key", help="Enter object key")
 
