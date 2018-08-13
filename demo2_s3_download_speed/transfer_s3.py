@@ -23,9 +23,9 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
         # The transfer size threshold for which multipart uploads, downloads, and copies will automatically be triggereds
         multipart_threshold=128 * MB,
         # The maximum number of threads that will be making requests to perform a transfer
-        max_concurrency=10,
+        max_concurrency=20,
         # The partition size of each part for a multipart transfer
-        multipart_chunksize=128 * MB,
+        multipart_chunksize=1 * MB,
         # The maximum amount of read parts that can be queued in memory to be written for a download
         max_io_queue=128,
         #  The max size of each chunk in the io queue
