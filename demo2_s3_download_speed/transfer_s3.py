@@ -33,8 +33,8 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
         #  If True, threads will be used when performing S3 transfers
         use_threads=True)
 
-    with S3Transfer(client, config):
-        client.download_file(s3bucket, s3key, saveto_localpath, Config=config)
+    with S3Transfer(client, config) as transfer_manager:
+        transfer_manager.download_file(s3bucket, s3key, saveto_localpath)
 
     logger.info("Completed..")
 
@@ -61,7 +61,8 @@ def uploadfile(localpath, s3bucket, s3key):
         #  If True, threads will be used when performing S3 transfers
         use_threads=True)
 
-    client.upload_file(localpath, s3bucket, s3key, Config=config)
+    with S3Transfer(client, config) as transfer_manager:
+        transfer_manager.upload_file(localpath, s3bucket, s3key)
 
     logger.info("Completed..")
 
