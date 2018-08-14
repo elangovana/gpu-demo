@@ -6,7 +6,7 @@ from datetime import datetime
 
 from boto3.s3.transfer import S3Transfer, TransferConfig
 
-FORMAT = '%(asctime)s  %(levelname)s	%(module)s %(message)s'
+FORMAT = '%(asctime)s   %(levelname)s	%(module)s %(message)s'
 logging.basicConfig(format=FORMAT)
 logger = logging.getLogger(__name__)
 logger.setLevel(level=logging.INFO)
@@ -23,13 +23,13 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
         # The transfer size threshold for which multipart uploads, downloads, and copies will automatically be triggereds
         multipart_threshold=10 * MB,
         # The maximum number of threads that will be making requests to perform a transfer
-        max_concurrency=30,
+        max_concurrency=10,
         # The partition size of each part for a multipart transfer
-        multipart_chunksize=10 * MB,
+        multipart_chunksize=5 * MB,
         # The maximum amount of read parts that can be queued in memory to be written for a download
-        max_io_queue=128,
+        max_io_queue=30 * 3,
         #  The max size of each chunk in the io queue
-        io_chunksize=10 * MB,
+        io_chunksize=5 * MB,
         #  If True, threads will be used when performing S3 transfers
         use_threads=True)
 
@@ -49,15 +49,15 @@ def uploadfile(localpath, s3bucket, s3key):
 
     config = TransferConfig(
         # The transfer size threshold for which multipart uploads, downloads, and copies will automatically be triggereds
-        multipart_threshold=1 * MB,
+        multipart_threshold=10 * MB,
         # The maximum number of threads that will be making requests to perform a transfer
-        max_concurrency=20,
+        max_concurrency=10,
         # The partition size of each part for a multipart transfer
         multipart_chunksize=5 * MB,
         # The maximum amount of read parts that can be queued in memory to be written for a download
-        max_io_queue=10,
+        max_io_queue=3*10,
         #  The max size of each chunk in the io queue
-        io_chunksize=1 * MB,
+        io_chunksize=5 * MB,
         #  If True, threads will be used when performing S3 transfers
         use_threads=True)
 
