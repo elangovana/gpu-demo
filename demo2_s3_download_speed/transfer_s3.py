@@ -18,6 +18,7 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
     client = boto3.client('s3')
 
     MB = 1024 ** 2
+    KB = 1024
 
     config = TransferConfig(
         # The transfer size threshold for which multipart uploads, downloads, and copies will automatically be triggereds
@@ -25,11 +26,11 @@ def downloadfile(s3bucket, s3key, saveto_localpath):
         # The maximum number of threads that will be making requests to perform a transfer
         max_concurrency=10,
         # The partition size of each part for a multipart transfer
-        multipart_chunksize=5 * MB,
+        multipart_chunksize=8 * MB,
         # The maximum amount of read parts that can be queued in memory to be written for a download
         max_io_queue=30 * 3,
         #  The max size of each chunk in the io queue
-        io_chunksize=5 * MB,
+        io_chunksize=256 * KB,
         #  If True, threads will be used when performing S3 transfers
         use_threads=True)
 
@@ -55,7 +56,7 @@ def uploadfile(localpath, s3bucket, s3key):
         # The partition size of each part for a multipart transfer
         multipart_chunksize=5 * MB,
         # The maximum amount of read parts that can be queued in memory to be written for a download
-        max_io_queue=3*10,
+        max_io_queue=3 * 10,
         #  The max size of each chunk in the io queue
         io_chunksize=5 * MB,
         #  If True, threads will be used when performing S3 transfers
